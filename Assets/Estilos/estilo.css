@@ -3,9 +3,21 @@ body {
   text-align: center;
   color: white;
   background-color: black;
+  font-family: "Roboto", sans-serif;
 }
 h1 {
   padding: 10px;
+}
+.tituloprincipal{
+  font-size: 22px;
+}
+
+.tituloprincipal span{
+  text-transform: uppercase;
+  font-weight: 800;
+}
+h4{
+  font-size: 20px;
 }
 
 .contenedor {
@@ -36,6 +48,12 @@ h1 {
   padding: 10px;
   border: none;
   border-radius: 0.8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.divisas{
+  padding: 10px;
+  background-color: white;
 }
 
 .contenedorgrafico {
