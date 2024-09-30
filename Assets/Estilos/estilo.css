@@ -11,7 +11,7 @@ h1{
 }
 
 .contenedor{
-    margin-top: 40px;
+   
     background-color: grey;
     width: 250px;
     margin: 0 auto;
@@ -28,4 +28,35 @@ h1{
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.input{
+    padding: 10px;
+}
+
+.calcular{
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: .8px;
+}
+
+.contenedorgrafico{
+    margin:  40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    
+}
+
+.graficos{
+    
+    width: 800px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
 }

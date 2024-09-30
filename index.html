@@ -4,25 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Assets/Estilos/estilo.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
 </head>
 <body>
     <hr>
-    <h1>Conversor de monedas nacional</h1>
+    <h1>Conversor de monedas nacional <br><span id="errorCatch"></span></h1>
     <hr class="espacio">
    <section class="contenedor">
    
     <div class="conversor">
      <h3>Pesos <span>clp</span></h3>
-     <input type="tel">
-     <h4>moneda a convertir</h4>
-     <select name="submit" id="divisas"></select>
-     <button class="buscar">buscar</button>
-     <div class="resultado">...</div>
+     <input id="input" class="input" type="tel" placeholder="0">
+     <h4>divisa a convertir</h4>
+     <select name="submit" id="divisas" class="divisas"></select>
+     <button class="calcular" id="calcular">calcular</button>
+     <div class="resultado" id="resultado">...</div>
     </div>
 
-   </section>
 
-    <script src="./Assets/Scripts/script.js"></script>
+   </section>
+   <section class="contenedorgrafico">
+   <div class="graficos">
+    <canvas id="grafico" ></canvas>
+ </div>
+</section>
+    <script src="./Assets/javasript/script.js"></script>
 </body>
 </html>
