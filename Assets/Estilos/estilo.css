@@ -1,62 +1,55 @@
-body{
-    
-    padding: 60px 40px;
-    text-align: center;
-    color: white;
-    background-color: black;
-
+body {
+  padding: 60px 40px;
+  text-align: center;
+  color: white;
+  background-color: black;
 }
-h1{
-    padding: 10px;
+h1 {
+  padding: 10px;
 }
 
-.contenedor{
-   
-    background-color: grey;
-    width: 250px;
-    margin: 0 auto;
-    min-height: 300px;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+.contenedor {
+  background-color: grey;
+  width: 250px;
+  margin: 0 auto;
+  min-height: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.conversor{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.conversor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.input{
-    padding: 10px;
+.input {
+  padding: 10px;
 }
 
-.calcular{
-    background-color: blue;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: .8px;
+.calcular {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 0.8px;
 }
 
-.contenedorgrafico{
-    margin:  40px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    
+.contenedorgrafico {
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.graficos{
-    
-    width: 800px;
-    height: 600px;
-    display: flex;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
+.graficos {
+  width: 800px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
 }
