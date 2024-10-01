@@ -35,31 +35,28 @@ botonCalcular.addEventListener("click", function () {
   if (!isNaN(clp) && !isNaN(taza)) {
     const conversion = clp / taza;
     resultado.textContent = `Resultado : ${conversion.toFixed(2)}`;
-    rendergrafica();
+    const divisaSeleccionada =
+      seleccion.options[seleccion.selectedIndex].text.toLowerCase();
+    rendergrafica(divisaSeleccionada);
   } else {
     resultado.textContent = "Por favor ingrese un resultado valido";
   }
 });
 
-function prepararrenderizargraficas(divisas) {
+function prepararrenderizargraficas(fechas, valores) {
   const tipografica = "line";
-  const divisasFiltradas = Object.values(divisas).filter(
-    (divisa) => divisa.unidad_medida === "Pesos"
-  );
-  const tipodivisa = divisasFiltradas.map((divisa) => divisa.nombre);
-  const titulo = "Tipo de cambio";
+  const titulo = "Relacion de precion versus los ultimos 10 dias";
   const colordeLinea = "red";
-  const peso = divisasFiltradas.map((divisa) => divisa.valor);
 
   const config = {
     type: tipografica,
     data: {
-      labels: tipodivisa,
+      labels: fechas,
       datasets: [
         {
           label: titulo,
           backgroundColor: colordeLinea,
-          data: peso,
+          data: valores,
         },
       ],
     },
@@ -67,9 +64,21 @@ function prepararrenderizargraficas(divisas) {
   return config;
 }
 
-async function rendergrafica() {
+async function rendergrafica(nombreDivisa) {
   const monedas = await getDivisas();
-  const config = prepararrenderizargraficas(monedas);
-  const charDom = document.getElementById("grafico");
-  new Chart(charDom, config);
+  const divisaSeleccionada = monedas[nombreDivisa.toLowerCase()];
+  if (divisaSeleccionada && divisaSeleccionada.serie) {
+    const ultimasFechas = divisaSeleccionada.serie
+      .slice(0, 10)
+      .map((entrada) => entrada.fecha.slice(0, 12));
+    const ultimosValores = divisaSeleccionada.serie
+      .slice(0, 10)
+      .map((entrada) => entrada.valor);
+    const config = prepararrenderizargraficas(
+      ultimasFechas.reverse(),
+      ultimosValores.reverse()
+    );
+    const charDom = document.getElementById("grafico");
+    new Chart(charDom, config);
+  }
 }
