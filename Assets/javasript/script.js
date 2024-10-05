@@ -20,7 +20,7 @@ async function renderizarDivisas() {
 
   Object.values(divisas).forEach((divisa) => {
     if (divisa.unidad_medida === "Pesos") {
-      htmldivisa += `<option value="${divisa.valor}">${divisa.nombre}</option>`;
+      htmldivisa += `<option value="${divisa.valor}">${divisa.codigo}</option>`;
     }
   });
   seleccion.innerHTML = htmldivisa;
@@ -29,18 +29,26 @@ async function renderizarDivisas() {
 renderizarDivisas();
 
 botonCalcular.addEventListener("click", function () {
-  const taza = parseFloat(seleccion.value);
+  let taza = parseFloat(seleccion.value);
   const clp = parseFloat(input.value);
 
   if (!isNaN(clp) && !isNaN(taza)) {
     const conversion = clp / taza;
     resultado.textContent = `Resultado : ${conversion.toFixed(2)}`;
-    const divisaSeleccionada =
-      seleccion.options[seleccion.selectedIndex].text.toLowerCase();
-    rendergrafica(divisaSeleccionada);
-  } else {
+
+     
+  }
+
+  else {
     resultado.textContent = "Por favor ingrese un resultado valido";
   }
+
+  seleccion.addEventListener("change", function () {
+    const divisaSeleccionada = seleccion.value;
+   console.log(divisaSeleccionada);
+   rendergrafica(nombreDivisa);
+  });
+
 });
 
 function prepararrenderizargraficas(fechas, valores) {
@@ -66,17 +74,15 @@ function prepararrenderizargraficas(fechas, valores) {
 
 async function rendergrafica(nombreDivisa) {
   const monedas = await getDivisas();
-  const divisaSeleccionada = monedas[nombreDivisa.toLowerCase()];
+  const divisaSeleccionada = monedas[nombreDivisa];
   if (divisaSeleccionada && divisaSeleccionada.serie) {
     const ultimasFechas = divisaSeleccionada.serie
       .slice(0, 10)
-      .map((entrada) => entrada.fecha.slice(0, 12));
-    const ultimosValores = divisaSeleccionada.serie
-      .slice(0, 10)
-      .map((entrada) => entrada.valor);
+      .map((entrada) => new Date(entrada.fecha).toLocaleDateString());
+    const ultimosValores = divisaSeleccionada.serie(0,10).map((entrada)=> entrada.valor)
     const config = prepararrenderizargraficas(
       ultimasFechas.reverse(),
-      ultimosValores.reverse()
+      ultimosValores
     );
     const charDom = document.getElementById("grafico");
     new Chart(charDom, config);

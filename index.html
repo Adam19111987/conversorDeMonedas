@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
     <title>Document</title>
   </head>
   <body>
@@ -23,15 +23,16 @@
         <input id="input" class="input" type="tel" placeholder="0" />
         <h4>divisa a convertir</h4>
         <select name="submit" id="divisas" class="divisas"></select>
-        <button class="calcular" id="calcular">convercion</button>
+        <button class="calcular" id="calcular">conversion</button>
         <div class="resultado" id="resultado">...</div>
       </div>
     </section>
     <section class="contenedorgrafico">
       <div class="graficos">
-        <canvas id="grafico"></canvas>
+        <canvas id="grafico" width="200px" height="200px"></canvas>
       </div>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./Assets/javasript/script.js"></script>
   </body>
 </html>
