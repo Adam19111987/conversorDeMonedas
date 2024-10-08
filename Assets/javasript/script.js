@@ -14,6 +14,8 @@ async function getDivisas() {
   }
 }
 
+
+
 async function renderizarDivisas() {
   const divisas = await getDivisas();
   let htmldivisa = "";
@@ -35,7 +37,7 @@ botonCalcular.addEventListener("click", function () {
   if (!isNaN(clp) && !isNaN(taza)) {
     const conversion = clp / taza;
     resultado.textContent = `Resultado : ${conversion.toFixed(2)}`;
-
+  
      
   }
 
@@ -43,48 +45,45 @@ botonCalcular.addEventListener("click", function () {
     resultado.textContent = "Por favor ingrese un resultado valido";
   }
 
-  seleccion.addEventListener("change", function () {
-    const divisaSeleccionada = seleccion.value;
-   console.log(divisaSeleccionada);
-   rendergrafica(nombreDivisa);
-  });
 
 });
 
-function prepararrenderizargraficas(fechas, valores) {
-  const tipografica = "line";
-  const titulo = "Relacion de precion versus los ultimos 10 dias";
-  const colordeLinea = "red";
+
+function preparacionGrafica(coins) {
+  const fechas = coins.map((coin) => coin.fecha.slice(0, 10)); 
+  const valores = coins.map((coin) => coin.valor); 
 
   const config = {
-    type: tipografica,
-    data: {
-      labels: fechas,
-      datasets: [
-        {
-          label: titulo,
-          backgroundColor: colordeLinea,
-          data: valores,
-        },
-      ],
-    },
+      type: "line",
+      data: {
+          labels: fechas,
+          datasets: [{
+              label: "Historial de valores",
+              backgroundColor: "red",
+              data: valores,
+              fill: false,
+          }],
+      },
   };
   return config;
 }
 
-async function rendergrafica(nombreDivisa) {
-  const monedas = await getDivisas();
-  const divisaSeleccionada = monedas[nombreDivisa];
-  if (divisaSeleccionada && divisaSeleccionada.serie) {
-    const ultimasFechas = divisaSeleccionada.serie
-      .slice(0, 10)
-      .map((entrada) => new Date(entrada.fecha).toLocaleDateString());
-    const ultimosValores = divisaSeleccionada.serie(0,10).map((entrada)=> entrada.valor)
-    const config = prepararrenderizargraficas(
-      ultimasFechas.reverse(),
-      ultimosValores
-    );
-    const charDom = document.getElementById("grafico");
-    new Chart(charDom, config);
+
+
+
+
+async function renderizarGrafica(codigoDivisa) {
+  try {
+      const res = await fetch(`https://mindicador.cl/api/${codigoDivisa}`);
+      const data = await res.json();
+      graficoDivisa.clearRect(0, 0, graficoDivisa.canvas.width, graficoDivisa.canvas.height); 
+      const config = preparacionGrafica(data.serie);
+      new Chart(graficoDivisa, config);
+      console.log("Gráfica creada");
+  } catch (e) {
+      console.error("Error al obtener datos para la gráfica:", e);
   }
 }
+
+
+renderizarGrafica("dolar");
